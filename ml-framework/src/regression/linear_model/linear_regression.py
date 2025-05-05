@@ -1,13 +1,13 @@
 import numpy as np
 from src.regression.linear_model.data_formats.linear_reg_data_classes import LinearRegressionParams
-#from src.regression.linear_model.data_formats.enums import Algorithm
-#from src.regression.linear_model.data_formats.enums import Regularizer
+from src.regression.linear_model.data_formats.enums import Algorithm
+from src.regression.linear_model.data_formats.enums import Regularizer
 from src.regression.linear_model.registry import LINEAR_REGRESSION_REGISTRY
 
 
 class LinearRegression:
 	# Temp change, since no access to internet : change back to Regularization and Algorithm strEnums
-	def __init__(self, learning_rate = .001, epochs=10000, tolerance=.00001, regularization_strength = 1, regularization: str = None, algorithm: str = 'closed_form'):
+	def __init__(self, learning_rate = .001, epochs=10000, tolerance=.00001, regularization_strength = 1, regularization: Regularizer = None, algorithm: Algorithm = 'closed_form'):
 		self.regularization = regularization
 		self.algorithm = algorithm
 		self.params = LinearRegressionParams(tolerance=tolerance, regularization_strength=regularization_strength, epochs=epochs, learning_rate=learning_rate)

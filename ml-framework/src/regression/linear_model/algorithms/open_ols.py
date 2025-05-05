@@ -27,8 +27,8 @@ class OpenFormOLS(LinearEstimator):
 			self.coef_ = self.coef_ - self.learning_rate*MSE_gradient
 			y_pred = X @ self.coef_ 
 			new_mse = MSE(y_pred, Y)
-			if not check_if_loss_improved_more_than_tol(prior_mse, new_mse):
-				break
+			#if not check_if_loss_improved_more_than_tol(prior_mse, new_mse):
+			#	break
 		self.iters_ = epoch
 
 		if fit_intercept:

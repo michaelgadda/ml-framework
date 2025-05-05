@@ -31,7 +31,7 @@ def test_closed_form_ols(tts_diabetes_data):
 def test_open_ols(tts_diabetes_data):
     sk_lr = SK_LR()
     sk_lr.fit(tts_diabetes_data[0], tts_diabetes_data[2])
-    lr = LinearRegression(algorithm="open_form", epochs=1500000, learning_rate=.5, tolerance=.0000001)
+    lr = LinearRegression(algorithm="open_form", epochs=1500000, learning_rate=.5, tolerance=.00000000001)
     lr.fit(tts_diabetes_data[0], tts_diabetes_data[2])
     #print(sk_lr.coef_,lr.coef_)
     assert all([np.round(a, 1) == np.round(b, 1) for a, b in zip(sk_lr.coef_, lr.coef_)])
@@ -103,7 +103,7 @@ def test_closed_ridge(tts_diabetes_data):
 def test_open_ridge(tts_diabetes_data):
     sk_lr = Ridge(alpha=1, solver='cholesky')
     sk_lr.fit(tts_diabetes_data[0], tts_diabetes_data[2])
-    lr = LinearRegression(algorithm="open_form", regularization="L2", regularization_strength=1, epochs=100000, learning_rate=.9, tolerance=.000001)
+    lr = LinearRegression(algorithm="open_form", regularization="L2", regularization_strength=1, epochs=100000, learning_rate=.9, tolerance=.00000000001)
     lr.fit(tts_diabetes_data[0], tts_diabetes_data[2])
     print(sk_lr.coef_,lr.coef_)
     print(f'MSE SK MSE: {MSE(sk_lr.predict(tts_diabetes_data[0]), tts_diabetes_data[2])}, THIS.MSE {MSE(lr.predict(tts_diabetes_data[0]),tts_diabetes_data[2])}')
@@ -116,6 +116,7 @@ def test_open_ridge(tts_diabetes_data):
     lr_r2 = sk_r2(tts_diabetes_data[3], lr_predicted_vals)
     #lr_r2 = r2_score(tts_diabetes_data[3], lr_predicted_vals)
     print(sk_lr_r2, lr_r2)
+    print(f'Epochs: {lr.iters_}')
     assert np.round(sk_lr_r2, 5) == np.round(lr_r2, 5)
 
 

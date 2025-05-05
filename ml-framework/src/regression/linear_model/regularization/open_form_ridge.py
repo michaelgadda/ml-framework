@@ -35,8 +35,8 @@ class OpenFormRidgeRegression(LinearEstimator):
 			self.coef_ = self.coef_ - self.learning_rate*l2_grad
 			y_pred = self.coef_ @ X.T
 			new_mse = MSE(y_pred, Y)
-			if not check_if_loss_improved_more_than_tol(prior_mse, new_mse):
-				break
+			#if not check_if_loss_improved_more_than_tol(prior_mse, new_mse):
+			#	break
 			
 		self.iters_ = epoch
 		if fit_intercept:
