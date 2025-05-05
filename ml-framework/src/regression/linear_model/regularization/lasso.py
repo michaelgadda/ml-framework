@@ -1,18 +1,14 @@
 import numpy as np
 from src.regression.linear_model.data_formats.linear_reg_data_classes import LinearRegressionParams
+from src.regression.linear_model.linear_regression_abc import LinearEstimator
 
-class Lasso:
+class Lasso(LinearEstimator):
     def __init__(self, params: LinearRegressionParams):
         self.epochs = params.epochs
         self.regularization_strength = params.regularization_strength
         self.set_interc_ = False
         self.coef_ = None
         self.interc_ = None
-        
-    def _preappend_bias_term(self, X: np.ndarray):
-        inter = np.ones(X.shape[0])
-        X_new = np.column_stack((inter, X))
-        return X_new
     
     def _get_adjusted_theta_k(self, theta_k: np.ndarray) -> np.ndarray:
         if theta_k < -self.regularization_strength:
@@ -44,8 +40,8 @@ class Lasso:
 
     def fit(self, X: np.ndarray, Y:np.ndarray, fit_intercept: bool = True):
         if fit_intercept:   
-            X = self._preappend_bias_term(X)
-            self.set_interc_
+            X = self.preappend_intercept_feature(X)
+            self.set_interc_ = True
         Y = Y.reshape(-1,1)
         n_rows, n_cols = X.shape
         self.coef_ = np.zeros(n_cols).reshape(-1,1)
@@ -60,8 +56,4 @@ class Lasso:
                 self.coef_[column] = theta_k / ((X_col.T @ X_col))
         if fit_intercept:
             self.coef_[0] = np.sum(Y)/n_rows - self.coef_[1:].T @ np.sum(X[:,1:], axis = 0)/n_rows
-
-    def predict(self, X: np.ndarray) -> np.ndarray:
-        if self.set_interc_:
-            X = self._preappend_bias_term(X)
-        return X@self.coef_
+            self.interc_ = self.coef_[0]

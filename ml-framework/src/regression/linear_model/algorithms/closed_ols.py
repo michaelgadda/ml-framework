@@ -8,13 +8,11 @@ class ClosedFormOLS(LinearEstimator):
 		self.coef_ = None
 		self.interc_ = None
 
-	def fit(self, X: np.ndarray, Y: np.ndarray, fit_intercept: bool=True):
+	def fit(self, X: np.ndarray, Y: np.ndarray, fit_intercept: bool=True) -> None:
 		if fit_intercept:
 			X = self.preappend_intercept_feature(X)
 			self.set_interc_ = True
-		#Not sure this is right
 		self.coef_ = np.linalg.inv(X.T@X)@X.T@Y
-
 		if fit_intercept: 
 			self.interc_ = self.coef_[0]
 

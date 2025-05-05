@@ -1,12 +1,12 @@
 import numpy as np 
 
-def check_if_loss_improved_more_than_tol(prior_loss: float, curr_loss: float, tol: float) -> bool:
+def check_if_loss_improved_more_than_tol(prior_loss: float, curr_loss: float, tol: float =.0001) -> bool:
     if np.abs(curr_loss - prior_loss)  <= tol*(1+prior_loss):
         return False
     return True
 
-def MSE(y_pred: np.ndarray, Y: np.ndarray, n_rows: int) -> float:
-    return np.sum((y_pred - Y)**2)/n_rows
+def MSE(y_pred: np.ndarray, Y: np.ndarray) -> float:
+    return np.sum((y_pred.reshape(-1,1) - Y.reshape(-1,1))**2)/Y.shape[0]
 
 def SSR(y_pred: np.ndarray, Y: np.ndarray) -> float:
     return np.sum((Y - y_pred)**2)
