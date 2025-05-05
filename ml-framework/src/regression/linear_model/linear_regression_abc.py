@@ -4,7 +4,7 @@ import numpy as np
 
 class LinearEstimator(ABC):
 
-    def check_attr(self):
+    def _check_attr(self):
         required = ["coef_", "set_interc_"]
         missing = [req for req in required if not hasattr(self, req)]
         if missing:
@@ -17,11 +17,9 @@ class LinearEstimator(ABC):
         return X
     
     def predict(self, X: np.ndarray) -> np.ndarray:
-        self.check_attr()
-        num_samples, _ = X.shape
+        self._check_attr()
         if self.set_interc_:
             X = self.preappend_intercept_feature(X)
-        print(X.shape, self.coef_.shape)
         y_pred = X@self.coef_
         return y_pred
 

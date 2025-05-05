@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import numpy as np
 
 @dataclass
 class LinearRegressionParams: 
@@ -6,3 +7,10 @@ class LinearRegressionParams:
     regularization_strength: int = 1
     learning_rate: float = .01
     tolerance: float = .001
+
+@dataclass
+class LinearRegressionAttr: 
+    iters_: int = None
+    coef_: np.ndarray
+    interc_: float = None
+    set_interc_: bool = None

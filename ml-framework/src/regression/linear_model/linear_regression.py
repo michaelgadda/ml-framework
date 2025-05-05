@@ -1,12 +1,12 @@
 import numpy as np
 from src.regression.linear_model.data_formats.linear_reg_data_classes import LinearRegressionParams
+from src.regression.linear_model.data_formats.linear_reg_data_classes import LinearRegressionAttr
 from src.regression.linear_model.data_formats.enums import Algorithm
 from src.regression.linear_model.data_formats.enums import Regularizer
 from src.regression.linear_model.registry import LINEAR_REGRESSION_REGISTRY
 
 
 class LinearRegression:
-	# Temp change, since no access to internet : change back to Regularization and Algorithm strEnums
 	def __init__(self, learning_rate = .001, epochs=10000, tolerance=.00001, regularization_strength = 1, regularization: Regularizer = None, algorithm: Algorithm = 'closed_form'):
 		self.regularization = regularization
 		self.algorithm = algorithm
@@ -14,6 +14,7 @@ class LinearRegression:
 		self.strategy = self._set_strategy()
 		self.coef_ = None
 		self.interc_ = None
+		self.iters_ = None
 
 	def _set_strategy(self): 
 		combined_strategy = LINEAR_REGRESSION_REGISTRY.get(f"{self.algorithm}_{self.regularization}", None)
