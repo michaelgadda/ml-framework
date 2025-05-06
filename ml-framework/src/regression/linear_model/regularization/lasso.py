@@ -1,5 +1,6 @@
 import numpy as np
 from src.regression.linear_model.data_formats.linear_reg_data_classes import LinearRegressionParams
+from src.regression.linear_model.data_formats.linear_reg_data_classes import LinearRegressionAttr
 from src.regression.linear_model.linear_regression_abc import LinearEstimator
 
 class Lasso(LinearEstimator):
@@ -9,6 +10,7 @@ class Lasso(LinearEstimator):
         self.set_interc_ = False
         self.coef_ = None
         self.interc_ = None
+        self.iters_ = 0
     
     def _get_adjusted_theta_k(self, theta_k: np.ndarray) -> np.ndarray:
         if theta_k < -self.regularization_strength:
@@ -54,6 +56,15 @@ class Lasso(LinearEstimator):
                 if column != 0:
                     theta_k = self._get_adjusted_theta_k(theta_k)
                 self.coef_[column] = theta_k / ((X_col.T @ X_col))
+        self.iters_ = epoch
         if fit_intercept:
             self.coef_[0] = np.sum(Y)/n_rows - self.coef_[1:].T @ np.sum(X[:,1:], axis = 0)/n_rows
             self.interc_ = self.coef_[0]
+
+    def get_lr_attr(self) -> LinearRegressionAttr:
+        attr_ = LinearRegressionAttr(interc_=self.interc_, coef_=self.coef_, set_interc_= self.set_interc_, iters_=self.iters_)
+        return attr_
+    
+
+    def __str__(self):
+        return self.obj_desc(f"~ Linear Regression with L1 Regularization (Lasso) via Coordinate Descent Optimization ~", "\n Iterations: {self.iters_}")

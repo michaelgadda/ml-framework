@@ -1,5 +1,6 @@
 import numpy as np
 from src.regression.linear_model.data_formats.linear_reg_data_classes import LinearRegressionParams
+from src.regression.linear_model.data_formats.linear_reg_data_classes import LinearRegressionAttr
 from src.regression.linear_model.linear_regression_abc import LinearEstimator
 
 class ClosedFormOLS(LinearEstimator):
@@ -15,4 +16,15 @@ class ClosedFormOLS(LinearEstimator):
 		self.coef_ = np.linalg.inv(X.T@X)@X.T@Y
 		if fit_intercept: 
 			self.interc_ = self.coef_[0]
+	
+	def get_lr_attr(self) -> LinearRegressionAttr:
+		attr_ = LinearRegressionAttr(interc_=self.interc_, coef_=self.coef_, set_interc_= self.set_interc_)
+		return attr_
+	
+	def __str__(self):
+		return self.obj_desc(f"~ Linear Regression via Normal Equation (Closed Form) ~")
+
+
+
+			
 

@@ -1,0 +1,78 @@
+DEBUG    regression:utility_funcs.py:19 SSR: [357373.14186571]
+DEBUG    regression:utility_funcs.py:19 SSR: [357373.14186571]
+DEBUG    regression:utility_funcs.py:19 SSR: [357373.14186571]
+DEBUG    validation:test_linear_regression.py:34 
+ Opens OLS: 
+ sklearn : [  -48.02846228  -224.65536334   554.61628748   360.27084995
+ -1085.53343      772.19682316   149.1631924     85.46051108
+   866.52891424    21.12842707] 
+
+ ML-Framework: [  -48.02822348  -224.65513749   554.61656508   360.27079364
+ -1085.50635873   772.17521242   149.151359      85.45741899
+   866.51855357    21.12858119]
+DEBUG    validation:test_linear_regression.py:35 Opens OLS:
+ Epochs: 523939
+DEBUG    validation:test_linear_regression.py:36 Opens OLS: 
+ MSE SK MSE: 2775.526313693499  
+
+ THIS.MSE 2775.526313722906
+DEBUG    regression:utility_funcs.py:19 SSR: [357373.14186571]
+DEBUG    regression:utility_funcs.py:19 SSR: [357372.84870069]
+DEBUG    validation:test_linear_regression.py:44 Sklearn R2: [0.44273882] | ML-Framework R2: [0.44273928]
+DEBUG    validation:test_linear_regression.py:56 sklearn : [  -48.02846228  -224.65536334   554.61628748   360.27084995
+ -1085.53343      772.19682316   149.1631924     85.46051108
+   866.52891424    21.12842707] 
+
+ ML-Framework: [[  -48.02846228]
+ [ -224.65536334]
+ [  554.61628748]
+ [  360.27084995]
+ [-1085.53343   ]
+ [  772.19682316]
+ [  149.1631924 ]
+ [   85.46051108]
+ [  866.52891424]
+ [   21.12842707]]
+DEBUG    regression:utility_funcs.py:19 SSR: [357373.14186571]
+DEBUG    regression:utility_funcs.py:19 SSR: [357373.14186571]
+DEBUG    validation:test_linear_regression.py:72 Lasso: 
+ sklearn : [  0.          -0.         401.13616771  29.33557751   0.
+   0.          -0.           0.         264.78687829   0.        ] 
+
+ ML-Framework: [[  0.        ]
+ [  0.        ]
+ [401.13412311]
+ [ 29.34289786]
+ [  0.        ]
+ [  0.        ]
+ [  0.        ]
+ [  0.        ]
+ [264.7848295 ]
+ [  0.        ]]
+DEBUG    regression:utility_funcs.py:19 SSR: [440852.18852462]
+DEBUG    regression:utility_funcs.py:19 SSR: [440851.70725907]
+DEBUG    validation:test_linear_regression.py:80 Sklearn R2: [0.31256778] | ML-Framework R2: [0.31256853]
+DEBUG    validation:test_linear_regression.py:89 Closed Ridge: 
+ sklearn : [  20.58650326  -64.81908668  289.35858522  195.04586827    9.71003496
+  -13.74779459 -141.18187656   99.86924713  229.0994563    90.07935731] 
+
+ ML-Framework: [  20.58650326  -64.81908668  289.35858522  195.04586827    9.71003496
+  -13.74779459 -141.18187656   99.86924713  229.0994563    90.07935731]
+DEBUG    regression:utility_funcs.py:19 SSR: [382559.17922892]
+DEBUG    regression:utility_funcs.py:19 SSR: [382559.17922892]
+DEBUG    validation:test_linear_regression.py:96 Sklearn R2: [0.40346558] | ML-Framework R2: [0.40346558]
+INFO     regression:linear_regression.py:27 Strategy set as: <class 'src.regression.linear_model.regularization.open_form_ridge.OpenFormRidgeRegression'>
+DEBUG    validation:test_linear_regression.py:106 sklearn : [  20.58650326  -64.81908668  289.35858522  195.04586827    9.71003496
+  -13.74779459 -141.18187656   99.86924713  229.0994563    90.07935731] 
+
+ ML-Framework: [  20.58650476  -64.81908749  289.35858674  195.04586965    9.71008804
+  -13.74785578 -141.18187829   99.86927834  229.09942318   90.07936067]
+DEBUG    validation:test_linear_regression.py:107 MSE SK MSE: 3361.2735060556142  
+
+ THIS.MSE 3361.2735167650676
+DEBUG    regression:utility_funcs.py:19 SSR: [382559.17922892]
+DEBUG    regression:utility_funcs.py:19 SSR: [382559.17843033]
+DEBUG    validation:test_linear_regression.py:116 Sklearn R2: [0.40346558] | ML-Framework R2: [0.40346558]
+DEBUG    validation:test_linear_regression.py:117 Epochs: 4281
+DEBUG    regression:utility_funcs.py:19 SSR: [357373.14186571]
+DEBUG    validation:test_utilities.py:17 Sklearn's R2: 0.44273881866297005 | ML-Frameworks R2: [0.44273882]

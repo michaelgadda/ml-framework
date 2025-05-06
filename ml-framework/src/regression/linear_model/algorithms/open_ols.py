@@ -1,7 +1,9 @@
 import numpy as np
 from src.regression.linear_model.data_formats.linear_reg_data_classes import LinearRegressionParams
+from src.regression.linear_model.data_formats.linear_reg_data_classes import LinearRegressionAttr
 from src.regression.linear_model.linear_regression_abc import LinearEstimator
 from src.regression.utility_funcs import check_if_loss_improved_more_than_tol
+from src.regression.utility_funcs import check_if_coef_changed_more_than_tol
 from src.regression.utility_funcs import MSE
 
 class OpenFormOLS(LinearEstimator):
@@ -24,12 +26,21 @@ class OpenFormOLS(LinearEstimator):
 			y_pred = X @ self.coef_ 
 			prior_mse = MSE(y_pred, Y)
 			MSE_gradient =  2 * X.T@(y_pred - Y) / n_rows
+			prior_coef = self.coef_
 			self.coef_ = self.coef_ - self.learning_rate*MSE_gradient
 			y_pred = X @ self.coef_ 
 			new_mse = MSE(y_pred, Y)
-			#if not check_if_loss_improved_more_than_tol(prior_mse, new_mse):
-			#	break
+			if not check_if_loss_improved_more_than_tol(prior_mse, new_mse, self.tolerance):
+				break
 		self.iters_ = epoch
 
 		if fit_intercept:
 			self.interc_ = self.coef_[0]
+
+	def get_lr_attr(self) -> LinearRegressionAttr:
+		attr_ = LinearRegressionAttr(interc_=self.interc_, coef_=self.coef_, set_interc_= self.set_interc_, iters_=self.iters_)
+		return attr_
+	
+	def __str__(self):
+		return self.obj_desc(f"~ Linear Regression with via Gradient Descent Optimization ~", "\n Iterations: {self.iters_}")
+

@@ -10,7 +10,7 @@ class LinearRegressionParams:
 
 @dataclass
 class LinearRegressionAttr: 
-    iters_: int = None
     coef_: np.ndarray
+    iters_: int = None
     interc_: float = None
     set_interc_: bool = None
