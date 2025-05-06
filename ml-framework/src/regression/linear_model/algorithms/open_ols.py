@@ -11,36 +11,42 @@ class OpenFormOLS(LinearEstimator):
 		self.epochs = params.epochs
 		self.tolerance = params.tolerance
 		self.learning_rate = params.learning_rate
-		self.coef_ = None
-		self.interc_ = None
-		self.set_interc_ = False
+		self._coef_ = None
+		self._interc_ = None
+		self._set_interc_ = False
 		self.iters_ = 0
+
+	@property
+	def coef_(self): return self._coef_
+
+	@property
+	def interc_(self): return self._interc_
+
+	@property
+	def set_interc_(self): return self._set_interc_
 
 	def fit(self, X: np.ndarray, Y: np.ndarray, fit_intercept: bool = True):
 		if fit_intercept:
 			X = self.preappend_intercept_feature(X)
-			self.set_interc_ = True
+			self._set_interc_ = True
 		n_rows, n_cols = X.shape
-		self.coef_ = np.random.rand(n_cols)
+		self._coef_ = np.random.rand(n_cols)
 		for epoch in range(self.epochs):
-			y_pred = X @ self.coef_ 
+			y_pred = X @ self._coef_ 
 			prior_mse = MSE(y_pred, Y)
 			MSE_gradient =  2 * X.T@(y_pred - Y) / n_rows
-			prior_coef = self.coef_
-			self.coef_ = self.coef_ - self.learning_rate*MSE_gradient
-			y_pred = X @ self.coef_ 
+			prior_coef = self._coef_
+			self._coef_ = self._coef_ - self.learning_rate*MSE_gradient
+			y_pred = X @ self._coef_ 
 			new_mse = MSE(y_pred, Y)
 			if not check_if_loss_improved_more_than_tol(prior_mse, new_mse, self.tolerance):
 				break
 		self.iters_ = epoch
 
 		if fit_intercept:
-			self.interc_ = self.coef_[0]
-
-	def get_lr_attr(self) -> LinearRegressionAttr:
-		attr_ = LinearRegressionAttr(interc_=self.interc_, coef_=self.coef_, set_interc_= self.set_interc_, iters_=self.iters_)
-		return attr_
+			self._interc_ = self._coef_[0]
+			
 	
 	def __str__(self):
-		return self.obj_desc(f"~ Linear Regression with via Gradient Descent Optimization ~", "\n Iterations: {self.iters_}")
+		return self.obj_desc(f"~ Linear Regression with via Gradient Descent Optimization ~", f"\n Iterations: {self.iters_}")
 

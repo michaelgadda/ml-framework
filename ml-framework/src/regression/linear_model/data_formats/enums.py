@@ -5,7 +5,7 @@ class Regularizer(StrEnum):
     L2 = "L2"
 
 class Algorithm(StrEnum):
-    COORDINATE = "coordinate"
+    COORDINATE = "coordinate_descent"
     OPEN_FORM = "open_form"
     CLOSED_FORM = "closed_form"
     

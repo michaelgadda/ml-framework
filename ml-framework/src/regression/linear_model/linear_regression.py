@@ -9,20 +9,45 @@ from src.regression import log
 
 
 class LinearRegression:
-	def __init__(self, learning_rate = .001, epochs=10000, tolerance=.00001, regularization_strength = 1, regularization: Regularizer = None, algorithm: Algorithm = 'closed_form'):
+	def __init__(self, 
+		learning_rate = .001, 
+		epochs=10000, 
+		tolerance=.00001, 
+		regularization_strength = 1, 
+		regularization: Regularizer = None, 
+		algorithm: Algorithm = Algorithm.CLOSED_FORM):
+
 		self.regularization = regularization
 		self.algorithm = algorithm
-		self.params = LinearRegressionParams(tolerance=tolerance, regularization_strength=regularization_strength, epochs=epochs, learning_rate=learning_rate)
+		self.params = LinearRegressionParams(
+			tolerance=tolerance, 
+			regularization_strength=regularization_strength, 
+			epochs=epochs, 
+			learning_rate=learning_rate)	
 		self.strategy = self._set_strategy()
-		self.set_interc_ = False
-		self.coef_ = None
-		self.interc_ = None
-		self.iters_ = None
 
+	@property
+	def coef_(self) -> np.ndarray:
+		if self.strategy.coef_ is None:
+			raise AttributeError("Call .fit before accessing coef_")
+		return self.strategy.coef_
+	
+	@property
+	def interc_(self) -> np.ndarray:
+		if self.strategy.interc_ is None:
+			raise AttributeError("Call .fit with fit_intercept=True before accessing interc_") 
+		return self.strategy.interc_
+	
+	@property
+	def iters_(self) -> int: 
+		return getattr(self.strategy, "iters_", None)
+	
 	def _set_strategy(self) -> LinearEstimator: 
 		combined_strategy = LINEAR_REGRESSION_REGISTRY.get(f"{self.algorithm}_{self.regularization}", None)
 		algorithm_strategy = LINEAR_REGRESSION_REGISTRY.get(self.algorithm, None)
 		regularization_strategy = LINEAR_REGRESSION_REGISTRY.get(self.regularization, None)
+		if combined_strategy is None and algorithm_strategy is None and regularization_strategy is None:
+			raise ValueError(f"No registered strategy for {self.algorithm} separatenly or combined with {self.regularization}")
 		if combined_strategy is not None:
 			log.info(f"Strategy set as: {combined_strategy}")
 			return combined_strategy(self.params)
@@ -30,21 +55,11 @@ class LinearRegression:
 			return regularization_strategy(self.params)
 		return algorithm_strategy(self.params)
 	
-	def _set_strat_attr(self):
-		strat_attr_ = self.strategy.get_lr_attr()
-		self.set_interc_ = strat_attr_.set_interc_
-		self.coef_ = strat_attr_.coef_
-		if self.set_interc_:
-			self.coef_ = strat_attr_.coef_[1:]
-			self.interc_ = strat_attr_.interc_
-		self.iters_ = strat_attr_.iters_
-
 	def fit(self, X: np.ndarray, Y: np.ndarray, fit_intercept: bool = True):
 		self.strategy.fit(X,Y, fit_intercept)
-		self._set_strat_attr()
 
 	def predict(self, X) -> np.ndarray:
-			return self.strategy.predict(X)
+		return self.strategy.predict(X)
 	
-	def __str__(self):
-		return str(self.strategy)
+	def __repr__(self) -> str:
+		return f"LinearRegression(strategy={self.strategy})"

@@ -1,8 +1,11 @@
-class MyLogisticRegression:
+from src.regression.logistic_model.logistic_regression_abc import LogisticEstimator
+
+class LogisticRegression(LogisticEstimator):
   def __init__(self, epochs=500, learning_rate=.001):
     self.epochs=epochs
     self.learning_rate=learning_rate
-    self.theta = None
+    self.__coef__ = None
+    self.__iter__ = None
     self.predictions = None
     self.prob_predictions = None
 
@@ -13,7 +16,7 @@ class MyLogisticRegression:
       return X_new
 
   def sigmoid(self, X):
-    z = self.theta@X.T
+    z = self.__coef__@X.T
     p = 1 / (1 + np.exp(-z))
     return p
 
@@ -21,19 +24,19 @@ class MyLogisticRegression:
     X = self.preappend_bias_term(X)
     num_features = X.shape[1]
     num_samples = X.shape[0]
-    self.theta = np.zeros(num_features)
+    self.__coef__ = np.zeros(num_features)
 
     for epoch in range(self.epochs):
       predicted_values = self.sigmoid(X)
       d_theta = (predicted_values - Y) @ X
-      self.theta = self.theta - self.learning_rate*d_theta
+      self.__coef__ = self.__coef__ - self.learning_rate*d_theta
 
   def predict(self, X, threshold=.5):
     X = self.preappend_bias_term(X)
-    self.prob_predictions = self.sigmoid(X)
-    self.predictions = copy(self.prob_predictions)
-    self.predictions[self.prob_predictions<=threshold] = 0
-    self.predictions[self.prob_predictions>threshold] = 1
+    prob_predictions = self.sigmoid(X)
+    predictions = copy(prob_predictions)
+    predictions[prob_predictions<=threshold] = 0
+    predictions[prob_predictions>threshold] = 1
 
     return self.predictions
 

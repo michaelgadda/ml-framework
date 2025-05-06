@@ -7,10 +7,19 @@ class Lasso(LinearEstimator):
     def __init__(self, params: LinearRegressionParams):
         self.epochs = params.epochs
         self.regularization_strength = params.regularization_strength
-        self.set_interc_ = False
-        self.coef_ = None
-        self.interc_ = None
+        self._set_interc_ = False
+        self._coef_ = None
+        self._interc_ = None
         self.iters_ = 0
+
+    @property
+    def coef_(self): return self._coef_
+
+    @property
+    def interc_(self): return self._interc_
+
+    @property
+    def set_interc_(self): return self._set_interc_
     
     def _get_adjusted_theta_k(self, theta_k: np.ndarray) -> np.ndarray:
         if theta_k < -self.regularization_strength:
@@ -24,13 +33,13 @@ class Lasso(LinearEstimator):
     def _set_column_removed_inputs(self, X: np.ndarray, column: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
         n_cols = X.shape[1]
         if column == 0:
-            temp_theta = self.coef_[column+1:].reshape(-1,1)
+            temp_theta = self._coef_[column+1:].reshape(-1,1)
             temp_X = X[:,column+1:]
         elif column + 1 == n_cols:
-            temp_theta = self.coef_[:column].reshape(-1,1)
+            temp_theta = self._coef_[:column].reshape(-1,1)
             temp_X = X[:, :column]
         else:
-            temp_theta = np.vstack((self.coef_[:column], self.coef_[column+1:])).reshape(-1,1)
+            temp_theta = np.vstack((self._coef_[:column], self._coef_[column+1:])).reshape(-1,1)
             temp_X = np.hstack((X[:, :column], X[:,column+1:]))
         return (temp_theta, temp_X)
 
@@ -43,10 +52,10 @@ class Lasso(LinearEstimator):
     def fit(self, X: np.ndarray, Y:np.ndarray, fit_intercept: bool = True):
         if fit_intercept:   
             X = self.preappend_intercept_feature(X)
-            self.set_interc_ = True
+            self._set_interc_ = True
         Y = Y.reshape(-1,1)
         n_rows, n_cols = X.shape
-        self.coef_ = np.zeros(n_cols).reshape(-1,1)
+        self._coef_ = np.zeros(n_cols).reshape(-1,1)
         self.regularization_strength = self.regularization_strength * n_rows
         for epoch in range(self.epochs):
             for column in range(n_cols):
@@ -55,16 +64,11 @@ class Lasso(LinearEstimator):
                 theta_k = self._get_theta_k(temp_X, temp_theta, X_col, Y)
                 if column != 0:
                     theta_k = self._get_adjusted_theta_k(theta_k)
-                self.coef_[column] = theta_k / ((X_col.T @ X_col))
+                self._coef_[column] = theta_k / ((X_col.T @ X_col))
         self.iters_ = epoch
         if fit_intercept:
-            self.coef_[0] = np.sum(Y)/n_rows - self.coef_[1:].T @ np.sum(X[:,1:], axis = 0)/n_rows
-            self.interc_ = self.coef_[0]
-
-    def get_lr_attr(self) -> LinearRegressionAttr:
-        attr_ = LinearRegressionAttr(interc_=self.interc_, coef_=self.coef_, set_interc_= self.set_interc_, iters_=self.iters_)
-        return attr_
-    
+            self._coef_[0] = np.sum(Y)/n_rows - self._coef_[1:].T @ np.sum(X[:,1:], axis = 0)/n_rows
+            self._interc_ = self._coef_[0]
 
     def __str__(self):
-        return self.obj_desc(f"~ Linear Regression with L1 Regularization (Lasso) via Coordinate Descent Optimization ~", "\n Iterations: {self.iters_}")
+        return self.obj_desc(f"~ Linear Regression with L1 Regularization (Lasso) via Coordinate Descent Optimization ~", f"\n Iterations: {self.iters_}")

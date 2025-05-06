@@ -4,10 +4,12 @@ from src.regression.linear_model.algorithms.coordinate_ols import OLSViaCoordDes
 from src.regression.linear_model.regularization.lasso import Lasso
 from src.regression.linear_model.regularization.ridge import Ridge
 from src.regression.linear_model.regularization.open_form_ridge import OpenFormRidgeRegression
+from src.regression.linear_model.data_formats.enums import Algorithm
+from src.regression.linear_model.data_formats.enums import Regularizer
 
-LINEAR_REGRESSION_REGISTRY = {"open_form": OpenFormOLS, 
-                              "closed_form": ClosedFormOLS,
-                              "coordinate_descent": OLSViaCoordDesc, 
-                              "L1": Lasso, 
-                              "L2": Ridge,
-                              "open_form_L2": OpenFormRidgeRegression}
+LINEAR_REGRESSION_REGISTRY = {Algorithm.OPEN_FORM: OpenFormOLS, 
+                              Algorithm.CLOSED_FORM: ClosedFormOLS,
+                              Algorithm.COORDINATE: OLSViaCoordDesc, 
+                              Regularizer.L1: Lasso, 
+                              Regularizer.L2: Ridge,
+                              f"{Algorithm.OPEN_FORM}_{Regularizer.L2}": OpenFormRidgeRegression}
