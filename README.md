@@ -9,11 +9,15 @@ Linear Regression:
 - OLS w/ L2 Regularization (Closed Form)
 - OLS w/ L2 Regularization (Open Form)
 - OLS w/ L1 Regularization (Open Form - Coordinate Descent)
+
 Logistic Regression
+
 Softmax Regression
+
 Kmeans:
 - Elkan's Optimization
 - Brute Force
+
 KNN:
 - KNN Regressor
   - Weighted
@@ -21,9 +25,11 @@ KNN:
 - KNN Classififer
   - Weighted
   - Heap Based
+
 Decision Trees (Integration In Progress)
 - Decision Tree Regressor
 - Decision Tree Classifier
+
 SVM (Integration & Bug Fix in Progress)
 - Linearly Separable SVM (Basic)
 
