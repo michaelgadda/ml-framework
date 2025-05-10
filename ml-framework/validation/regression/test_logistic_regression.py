@@ -1,4 +1,4 @@
-from src.regression.logistic_model.logistic_regression import LogisticRegression
+from src.linear.logistic_model.logistic_regression import LogisticRegression
 from sklearn.linear_model import LogisticRegression as SK_LR
 from sklearn.metrics import log_loss
 from sklearn.metrics import accuracy_score
@@ -8,6 +8,7 @@ from validation import log
 """ Because the way this library implements log-reg is different than sklearn, 
         the assertion is based off of similarity not exactness """
 
+@pytest.mark.linear
 @pytest.mark.logistic
 @pytest.mark.logistic_regression
 def test_logistic_regression(tts_breast_cancer_data):
@@ -26,7 +27,7 @@ def test_logistic_regression(tts_breast_cancer_data):
     assert np.round(sk_ll, 5) - np.round(lr_ll, 5)
     assert np.abs(np.round(sk_lr_as, 3) - np.round(lr_as, 3)) < .025
 
-
+@pytest.mark.linear
 @pytest.mark.logistic
 @pytest.mark.softmax_regression
 def test_softmax_regression(tts_digits_data):

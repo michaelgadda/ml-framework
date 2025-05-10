@@ -1,14 +1,14 @@
-from src.regression.linear_model.linear_regression import LinearRegression
+from src.linear.linear_model.linear_regression import LinearRegression
 from sklearn.metrics import r2_score as sk_r2
-from src.regression.utility_funcs import r2_score
-from src.regression.utility_funcs import MSE
+from src.utilities.metrics import r2_score
+from src.utilities.metrics import MSE
 import pytest
 import numpy as np
 from validation import log
 
 @pytest.mark.r2_score
 @pytest.mark.utilities
-def test_closed_form_ols(tts_diabetes_data):
+def test_r2(tts_diabetes_data):
     lr = LinearRegression(algorithm='closed_form')
     lr.fit(tts_diabetes_data[0], tts_diabetes_data[2])
     lr_predicted_vals = lr.predict(tts_diabetes_data[1])

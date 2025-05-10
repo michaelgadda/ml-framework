@@ -1,13 +1,14 @@
-from src.regression.linear_model.linear_regression import LinearRegression
+from src.linear.linear_model.linear_regression import LinearRegression
 from sklearn.linear_model import LinearRegression as SK_LR
 from sklearn.linear_model import Ridge
 from sklearn.linear_model import Lasso
-from src.regression.utility_funcs import r2_score
-from src.regression.utility_funcs import MSE
+from src.utilities.metrics import r2_score
+from src.utilities.metrics import MSE
 import pytest
 import numpy as np
 from validation import log
 
+@pytest.mark.linear
 @pytest.mark.linear_regression
 def test_closed_form_ols(tts_diabetes_data):
     sk_lr = SK_LR()
@@ -24,6 +25,7 @@ def test_closed_form_ols(tts_diabetes_data):
     assert np.round(sk_lr_r2, 5) == np.round(lr_r2, 5)
 
 # If tolerance is removed, this will converge to optimum after 1.5M runs.
+@pytest.mark.linear
 @pytest.mark.linear_regression
 def test_open_ols(tts_diabetes_data):
     sk_lr = SK_LR()
@@ -42,7 +44,7 @@ def test_open_ols(tts_diabetes_data):
     log.debug(f"Sklearn R2: {sk_lr_r2} | ML-Framework R2: {lr_r2}")
     assert np.round(sk_lr_r2, 1) == np.round(lr_r2, 1)
 
-
+@pytest.mark.linear
 @pytest.mark.linear_regression
 def test_coordinate_ols(tts_diabetes_data):
     sk_lr = SK_LR()
@@ -58,6 +60,7 @@ def test_coordinate_ols(tts_diabetes_data):
     lr_r2 = r2_score(tts_diabetes_data[3], lr_predicted_vals)
     assert np.round(sk_lr_r2, 5) == np.round(lr_r2, 5)
 
+@pytest.mark.linear
 @pytest.mark.linear_regression
 def test_lasso(tts_diabetes_data):
     sk_lr = Lasso(alpha=1)
@@ -74,6 +77,7 @@ def test_lasso(tts_diabetes_data):
     log.debug(f"Sklearn R2: {sk_lr_r2} | ML-Framework R2: {lr_r2}")
     assert np.round(sk_lr_r2, 5) == np.round(lr_r2, 5)
 
+@pytest.mark.linear
 @pytest.mark.linear_regression
 def test_closed_ridge(tts_diabetes_data):
     sk_lr = Ridge(alpha=1, solver='cholesky')
@@ -90,6 +94,7 @@ def test_closed_ridge(tts_diabetes_data):
     log.debug(f"Sklearn R2: {sk_lr_r2} | ML-Framework R2: {lr_r2}")
     assert np.round(sk_lr_r2, 2) == np.round(lr_r2, 1)
 
+@pytest.mark.linear
 @pytest.mark.linear_regression
 def test_open_ridge(tts_diabetes_data):
     sk_lr = Ridge(alpha=1, solver='cholesky')
