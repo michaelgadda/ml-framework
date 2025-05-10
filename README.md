@@ -1,5 +1,5 @@
 # ml-framework
-This framework is supports 7 algorithms and *18* variations of these algorithms, from which I recreated from scratch with nothing but numpy. These algorithms were originally 'hacked' together in jupyter notebooks as a form of solidifying what my machine learning studies (see below for notebooks). This framework took those algorithms, cleaned them up, and put them into a well-designed framework allowing for expansion and ease of use by the user. 
+This framework is supports 7 algorithms and **18** variations of these algorithms, from which I recreated from scratch with nothing but numpy. These algorithms were originally 'hacked' together in jupyter notebooks as a form of solidifying what my machine learning studies (see below for notebooks). This framework took those algorithms, cleaned them up, and put them into a well-designed framework allowing for expansion and ease of use by the user. 
 
 ## Algorithms Included 
 - ###  Linear Regression:
