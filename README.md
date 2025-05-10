@@ -12,13 +12,13 @@ This framework is supports _ algorithms from which I recreated from scratch with
 
 - ###  Logistic Regression
 
-- ### - Softmax Regression
+- ###  Softmax Regression
 
-### - Kmeans:
+- ### - Kmeans:
   - Elkan's Optimization
   - Brute Force
 
-### - KNN:
+- ### - KNN:
   - KNN Regressor
     - Weighted
     - Heap Based
@@ -26,10 +26,10 @@ This framework is supports _ algorithms from which I recreated from scratch with
     - Weighted
     - Heap Based
 
-### - Decision Trees (Integration In Progress)
+- ### - Decision Trees (Integration In Progress)
   - Decision Tree Regressor
   - Decision Tree Classifier
 
-### - Linearly Separable SVM (Integration & Bug Fix in Progress)
+- ### - Linearly Separable SVM (Integration & Bug Fix in Progress)
 
 
