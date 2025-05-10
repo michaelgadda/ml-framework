@@ -76,3 +76,21 @@ DEBUG    validation:test_linear_regression.py:107 Sklearn R2: [0.40346558] | ML-
 DEBUG    validation:test_linear_regression.py:108 Epochs: 4281
 DEBUG    regression:utility_funcs.py:19 SSR: [357373.14186571]
 DEBUG    validation:test_utilities.py:17 Sklearn's R2: 0.44273881866297005 | ML-Frameworks R2: [0.44273882]
+2025-05-09 18:36:02,522 - DEBUG - (np.float64(0.17407), np.float64(0.23475))
+2025-05-09 18:36:02,522 - DEBUG - (np.float64(0.97111), np.float64(0.97778))
+2025-05-09 18:40:15,511 - DEBUG - (np.float64(1.76437), np.float64(2.52054))
+2025-05-09 18:40:15,512 - DEBUG - (np.float64(0.95105), np.float64(0.93007))
+2025-05-09 18:40:21,484 - DEBUG - (np.float64(0.17407), np.float64(0.21312))
+2025-05-09 18:40:21,484 - DEBUG - (np.float64(0.97111), np.float64(0.97111))
+2025-05-09 18:41:40,662 - DEBUG - (np.float64(1.76437), np.float64(2.52054))
+2025-05-09 18:41:40,662 - DEBUG - (np.float64(0.95105), np.float64(0.93007))
+2025-05-09 18:41:46,399 - DEBUG - (np.float64(0.17407), np.float64(0.23148))
+2025-05-09 18:41:46,399 - DEBUG - (np.float64(0.97111), np.float64(0.96889))
+2025-05-09 18:42:07,472 - DEBUG - (np.float64(1.76437), np.float64(2.52054))
+2025-05-09 18:42:07,472 - DEBUG - (np.float64(0.95105), np.float64(0.93007))
+2025-05-09 18:42:13,377 - DEBUG - (np.float64(0.17407), np.float64(0.25017))
+2025-05-09 18:42:13,377 - DEBUG - (np.float64(0.97111), np.float64(0.96444))
+2025-05-09 18:43:00,074 - DEBUG - (np.float64(1.76437), np.float64(2.52054))
+2025-05-09 18:43:00,074 - DEBUG - (np.float64(0.95105), np.float64(0.93007))
+2025-05-09 18:43:05,552 - DEBUG - (np.float64(0.17407), np.float64(0.23537))
+2025-05-09 18:43:05,552 - DEBUG - (np.float64(0.97111), np.float64(0.96889))

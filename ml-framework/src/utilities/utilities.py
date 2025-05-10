@@ -27,9 +27,18 @@ def my_train_test_split(X: np.ndarray, Y: np.ndarray, test_size: float = .2, ran
 
 	return X_train, X_test, y_train, y_test
 
-
 def preappend_intercept_feature(X: np.ndarray) -> np.ndarray:
 	num_samples, _ = X.shape
 	intercept_feature = np.ones(num_samples)
 	X = np.insert(X, 0, intercept_feature, 1)
 	return X
+
+def get_number_of_target_classes(Y: np.ndarray) -> int:
+	return len(np.unique(Y))
+
+def one_hot_encode_arr(arr: np.array) -> np.ndarray:
+	num_samples = arr.shape[0]
+	class_count = get_number_of_target_classes(arr)
+	ohe_array = np.zeros([num_samples,class_count])
+	ohe_array[np.arange(0,num_samples), arr] = 1
+	return ohe_array
