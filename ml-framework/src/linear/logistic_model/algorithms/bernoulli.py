@@ -30,8 +30,12 @@ class Bernoulli(LogisticEstimator):
 	
 	def sigmoid(self, X):
 		z = X@self._coef_
-		p = 1 / (1 + np.exp(-z, dtype=np.float128))
-		return p
+		output = np.ndarray(z.shape)
+		neg_idx = np.where(z < 0)
+		pos_idx = np.where(z > 0)
+		output[pos_idx] = 1 / (1 + np.exp(-z[pos_idx], dtype=np.float128))
+		output[neg_idx] =  np.exp(z[neg_idx]) / (1 + np.exp(z[neg_idx]))
+		return output
 
 	def fit(self, X, Y, fit_intercept=True):
 		if fit_intercept:

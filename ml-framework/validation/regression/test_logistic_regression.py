@@ -14,7 +14,7 @@ from validation import log
 def test_logistic_regression(tts_breast_cancer_data):
     sk_lr = SK_LR(penalty=None, solver='newton-cholesky')
     sk_lr.fit(tts_breast_cancer_data[0], tts_breast_cancer_data[2])
-    lr = LogisticRegression(epochs=10000, learning_rate=.1)
+    lr = LogisticRegression(epochs=150000, learning_rate=.00001)
     lr.fit(tts_breast_cancer_data[0], tts_breast_cancer_data[2])
     sk_predicted_vals = sk_lr.predict(tts_breast_cancer_data[1])
     lr_predicted_vals = lr.predict(tts_breast_cancer_data[1])
@@ -22,6 +22,8 @@ def test_logistic_regression(tts_breast_cancer_data):
     lr_as = accuracy_score(tts_breast_cancer_data[3], lr_predicted_vals)
     sk_ll = log_loss(tts_breast_cancer_data[3], sk_predicted_vals)
     lr_ll = log_loss(tts_breast_cancer_data[3], lr_predicted_vals)
+    print(f'{np.round(sk_ll, 5), np.round(lr_ll, 5)}')
+    print(f'{np.round(sk_lr_as, 5), np.round(lr_as, 5)}')
     log.debug(f'{np.round(sk_ll, 5), np.round(lr_ll, 5)}') 
     log.debug(f'{np.round(sk_lr_as, 5), np.round(lr_as, 5)}')
     assert np.round(sk_ll, 5) - np.round(lr_ll, 5)
